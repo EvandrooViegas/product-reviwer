@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.gradient-background {
+    color: white;
+    @apply font-df;
+    background: radial-gradient(91.7% 91.7% at 50% 2.41%, #2D364E 0%, rgba(22, 22, 22, 0.85))
+}
+.line-heigth-0 {
+    line-height: 4;
+}
+.fade-in {
+    animation: fadeIn 500ms linear;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
