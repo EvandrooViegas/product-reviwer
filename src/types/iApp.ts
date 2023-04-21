@@ -1,13 +1,16 @@
-import iSanityImage from "./iSanityImage"
-
-export interface iApp {
+import { iDescriber } from "./iDescriber"
+import { iSocial, iSanityImage, _iSocial } from "./index"
+interface base  {
     name: string,
-    avatar: string,
-    video?: string
+    video?: string,
+    describer?: iDescriber
 }
+export  interface iApp extends base  {
+    avatar: string,
+    socials: iSocial[]
+} 
 
-export interface _iApp {
-    name: string,
+export interface _iApp extends base {
     avatar: iSanityImage,
-    video?: string
+    socials: _iSocial[]
 }

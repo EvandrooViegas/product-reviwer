@@ -16,6 +16,20 @@ export default defineType({
             type: "string"
         }),
         defineField({
+            name: "image",
+            title: "Image",
+            type: "image"
+        }),
+        defineField({
+            name: "banner",
+            title: "Banner",
+            type: "image",
+            validation: rule => [
+                rule.required().error("A banner is required")
+            ]
+        }),
+
+        defineField({
             name: "products",
             title: "Collection products",
             type: "array",

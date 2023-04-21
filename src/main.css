@@ -1,24 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: "Poppins", sans-serif;
+}
+/* Fonts */
+.font-poppins {
+  font-family: "Poppins", sans-serif;
+}
+
+.font-archivo {
+  font-family: "Archivo", sans-serif;
+}
+
+/* TEXT - GRADIENT */
+.text-gradient-primary {
+  background: linear-gradient(
+    88.06deg,
+    #54c1ff 7.09%,
+    #939dff 95.64%,
+    #5cffe2 95.64%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.text-gradient-secondary {
+  background: linear-gradient(267.1deg, #a9fff0 2.41%, #8fafff 89.4%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
 .gradient-background {
-    color: white;
-    @apply font-df;
-    background: radial-gradient(91.7% 91.7% at 50% 2.41%, #2D364E 0%, rgba(22, 22, 22, 0.85))
+  color: white;
+  @apply font-df;
+  background: radial-gradient(
+    91.7% 91.7% at 50% 2.41%,
+    #2d364e 0%,
+    rgba(22, 22, 22, 0.85)
+  );
 }
 .line-heigth-0 {
-    line-height: 4;
+  line-height: 4;
 }
 .fade-in {
-    animation: fadeIn 500ms linear;
+  animation: fadeIn 500ms linear;
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  --size: 15px;
+  border-left: var(--size) solid transparent;
+  border-right: var(--size) solid transparent;
+  border-bottom: var(--size) solid;
+}
+
+.center-v {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.center-h {
+  left: 50%;
+  transform: translateX(-50%);
 }

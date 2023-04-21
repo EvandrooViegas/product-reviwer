@@ -9,11 +9,12 @@ export default {
       colors: {
         "secondary": "#939DFF",
         "gray": "#CBCBCB",
-        "glass": "rgba(217, 217, 217, 0.12);"
+        "glass": "rgba(217, 217, 217, 0.12);",
+        "primary": "#6366f1"
 
       },
       borderRadius: {
-        "df": "35px"
+        "DEFAULT": "35px"
       },
       fontFamily: {
         "df": ['Poppins', 'Helvetica']

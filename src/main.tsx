@@ -1,9 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { router, RouterProvider } from './routes'
-import MainLayout from './components/UI/layouts/MainLayout'
-import { SkeletonTheme } from 'react-loading-skeleton';
-
+import { MantineProvider } from '@mantine/core';
 import "./main.css"
 import 'react-loading-skeleton/dist/skeleton.css'
 
@@ -11,13 +9,16 @@ import 'react-loading-skeleton/dist/skeleton.css'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <SkeletonTheme 
-     baseColor="#747a79"
-     highlightColor='#818c8a'
-    >
-      <MainLayout>
-        <RouterProvider router={router} />
-      </MainLayout>
-    </SkeletonTheme>
+
+      <MantineProvider 
+        withGlobalStyles
+        theme={{ 
+          colorScheme: "dark",
+          fontFamily: 'Poppins, sans-serif',
+        }}
+        
+      >
+          <RouterProvider router={router} />
+      </MantineProvider>
   </React.StrictMode>
 )

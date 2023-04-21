@@ -1,13 +1,17 @@
 import { _iIcon, iIcon } from "./iIcon";
+import iSanityImage from "./iSanityImage";
 
 export interface iLink {
-    icon: iIcon,
-    link: string,
+    icon: string,
+    url: string,
     name: string,
+    _key: string
 }
 
 export interface _iLink {
-    icon: _iIcon,
-    link: string,
+    icon: iSanityImage,
+    url: string,
     name: string,
+    _key: string
+
 }
