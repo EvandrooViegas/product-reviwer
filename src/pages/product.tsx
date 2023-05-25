@@ -11,7 +11,6 @@ import trimString from "../utils/trim-string";
 import { useNavbar } from "../stores/useNavbar";
 import { useProductContext } from "../stores/useProductContext";
 
-import Instagram from 'react-instagram-embed';
 export default function Product() {
   const params = useParams();
   const productId = params.id!;
