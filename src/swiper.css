@@ -1,0 +1,19 @@
+:root {
+    --swiper-pagination-color: #aaa;
+    --swiper-pagination-bullet-size: 4px;
+    --swiper-pagination-bullet-width: 16px;
+    --swiper-pagination-bullet-height: 8px;
+    --swiper-pagination-bullet-inactive-color: #ccc;
+    --swiper-pagination-bullet-horizontal-gap: 4px;
+    --swiper-pagination-bullet-vertical-gap: 1px;
+    --swiper-pagination-bullet-border-radius: 10px;
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+.swiper-pagination-bullet-active {
+    width: calc(var(--swiper-pagination-bullet-width) * 2);
+    transition: all;
+}

@@ -1,3 +1,4 @@
+import React from "react"
 import { useEffect, useState } from "react";
 import { isArray } from "sanity";
 
@@ -29,7 +30,7 @@ const useWords = (wordsArr:string[]) => {
 }
 
 
-const useWriter = (str: string, delay: number, decorator: string = " |") => {
+const useWriter = (str: string, delay: number, decorator = " |") => {
   const [word, setWord] = useState("");
   const writingDelay = delay * 0.3;
   const idlingDelay = delay * 0.4;
@@ -55,9 +56,8 @@ const useWriter = (str: string, delay: number, decorator: string = " |") => {
         i++
       }, delayPerLetter)
     }
-    const idle = () => {
-      
-    }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    const idle = () => {}
     const erase = () => {
       let i = str.length
       const intervalId = setInterval(() => {
@@ -111,5 +111,6 @@ export default function Typer(props: Props) {
   }, []);
   return (
     <div className={className}>{typed}</div>
-  );
+
+    );
 }

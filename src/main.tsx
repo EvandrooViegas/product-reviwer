@@ -5,6 +5,8 @@ import { MantineProvider } from '@mantine/core';
 import "./main.css"
 import 'react-loading-skeleton/dist/skeleton.css'
 
+import "swiper/css"
+import "swiper/css/pagination"
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

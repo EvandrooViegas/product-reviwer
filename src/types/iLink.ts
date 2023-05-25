@@ -9,7 +9,7 @@ export interface iLink {
 }
 
 export interface _iLink {
-    icon: iSanityImage,
+    icon: string,
     url: string,
     name: string,
     _key: string

@@ -1,8 +1,10 @@
-import { defineType, defineField } from "sanity"
+import { defineType, defineField, validation } from "sanity"
+import { GrDocumentConfig } from "react-icons/gr"
 export default defineType({
     name: "app",
     title: "Application",
     type: "document",
+    icon: GrDocumentConfig,
     fields: [
         defineField({
             name: "name",
@@ -48,9 +50,27 @@ export default defineType({
             ]
         }),
         defineField({
+            type: "document",
             name: "video",
-            title: "Youtube Video URL",
-            type: "url"
+            title: "Video",
+            fields: [
+                defineField({
+                    name: "url",
+                    title: "Video URL",
+                    type: "url"
+                }),
+                defineField({
+                    name: "title",
+                    title: "Video Title",
+                    type: "string",
+                    validation: r => r.required()
+                }),
+                defineField({
+                    name: "description",
+                    title: "Video Description",
+                    type: "text"
+                })
+            ]
         }),
         defineField({
             name: "socials",
@@ -86,8 +106,39 @@ export default defineType({
                             rule.required().error("You must specify a social media link for the application")
                         ]
                     })
-                ]
-            }]
+                ],
+                preview: {
+                    select: {
+                        media: "icon.icon",
+                        title: "name"
+                    }
+                }
+            }],
         }),
+        defineField({
+            name: "swiper",
+            title: "Swiper",
+            type: "document",
+            fields: [
+                defineField({
+                    name: "title",
+                    title: "Swiper Title",
+                    type: "string",
+                    validation: r => r.required().error("You must specify a title for the swiper").min(5).max(50)
+                }),
+                defineField({
+                    name: "elements",
+                    title: "Swiper Elements",
+                    type: "array",
+                    of: [{
+                        name: "element",
+                        title: "Swiper Element",
+                        type: "reference",
+                        to: [{ type: "product" }, { type: "collection" }],
+                    }],
+                    validation: r => r.required().error("You must specify at least one element for the swiper"),
+                })
+            ]
+        })
     ]
 })

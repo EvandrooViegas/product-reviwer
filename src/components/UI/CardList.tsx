@@ -1,15 +1,17 @@
-import { iProduct, iCollection } from "../../types";
-import getLayoutWidth from "../../utils/get-layout-width";
+import React from "react";
 import Card from "./Card";
-import Skeleton, { SkeletonProvider } from "./Skeleton";
+import { SkeletonProvider } from "./Skeleton";
 import Title from "./Title";
-
+import { iCupom } from "../../types/iCupom";
+import ShowMoreItems from "../ShowMoreItems";
 export type iCard = {
   id: string;
   text: string;
   image: string;
   type: string;
   description: string;
+  date: string;
+  cupom?: iCupom;
 };
 type Props = {
   list: iCard[] | null;
@@ -19,50 +21,32 @@ type Props = {
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export default function CardList(props: Props) {
-  const { list, title, isLoading, showTitle = true } = props;
+  const { list, title, isLoading, showTitle = true, ...rest } = props;
   const listType = list?.[0].type || null;
-  const fakeData = new Array(3).fill(0);
+  const fakeData = new Array(4).fill(0);
+  const cardListTitle =
+    listType === "product" && showTitle && !title
+      ? "Lista de Produtos"
+      : "Lista de Coleções";
   return (
     <div
-      {...props}
       className={`
-      flex flex-col gap-4
-      md:grid md:grid-cols-2 mt-12  
-      ${props.className}
+    flex flex-col items-center gap-4
+       
     `}
+      {...rest}
     >
-      <SkeletonProvider
-        contextProps={{
-          visible: isLoading,
-          mt: "md",
-        }}
-      >
-        <>
-          <div className="col-span-2">
-            <Skeleton>
-              <Title>
-                <p>
-                  {listType === "product" && showTitle && !title
-                    ? "Lista de Produtos"
-                    : "Lista de Coleções"}
-                </p>
-              </Title>
-            </Skeleton>
-          </div>
-          {!isLoading &&
-            list?.map((item, idx) => (
-              <Card
-                isLoading={false}
-                key={item.id}
-                full={idx === 0}
-                item={item}
-              />
-            ))}
-          {isLoading &&
-            fakeData.map((_, idx) => (
-              <Card isLoading={isLoading} key={idx} full={idx === 0} />
-            ))}
-        </>
+      <SkeletonProvider contextProps={{ visible: isLoading, width: "100%" }}>
+        <Title>{cardListTitle}</Title>
+          <ShowMoreItems className="flex flex-col md:grid md:grid-cols-2 gap-6 w-full h-fit">
+            {!isLoading
+              ? list?.map((item, idx) => (
+                  <Card isLoading={false} key={item.id} item={item} />
+                ))
+              : fakeData.map((_, idx) => (
+                  <Card isLoading={isLoading} key={idx} />
+                ))}
+          </ShowMoreItems>
       </SkeletonProvider>
     </div>
   );

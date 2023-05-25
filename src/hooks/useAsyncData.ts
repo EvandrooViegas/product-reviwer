@@ -1,22 +1,28 @@
 import { useState, useEffect } from "react"
 
-type AsyncDataOptions = {
+type AsyncDataOptions<T> = {
     delay?: number,
-    dependecies?: any[]
+    dependecies?: any[],
+    onFetch?: (data:T) => void,
 }
-const defaultOptions:AsyncDataOptions = {
+const defaultOptions:AsyncDataOptions<unknown> = {
     delay: 0,
     dependecies: []
 }
 
+export type IUseAsyncDataReturn<T extends () => unknown> = ReturnType<typeof useAsyncData<Awaited<ReturnType<T>>>>
+
+
+
 export default function useAsyncData<T>(
     func: () => Promise<T>,
-    options?: AsyncDataOptions
+    options?: AsyncDataOptions<T>
 ) {
     const { 
         delay, 
-        dependecies
-    } = { ...defaultOptions, ...options}
+        dependecies,
+        onFetch
+    } = { ...defaultOptions, ...options }
     const [data, setData] = useState<T | null>(null)
     const [error, setError] = useState<Error | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -27,6 +33,7 @@ export default function useAsyncData<T>(
             try {
                 const result = await func()
                 if (isMounted) setData(result)
+                onFetch?.(result)
             } catch (e:any) {
                 if (isMounted) setError(e)
             } finally {

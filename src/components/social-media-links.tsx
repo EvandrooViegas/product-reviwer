@@ -1,8 +1,9 @@
-import { useMainLayout } from "./UI/layouts/MainLayout";
 import Skeleton from "./UI/Skeleton";
-import Avatar from "./UI/Avatar";
-import React from "react";
+import { Icon } from '@iconify/react';
+import React, { useState } from "react";
 import { iSocial } from "../types";
+import { useMainLayout } from "./UI/layouts/MainLayout/contexts/MainLayoutContext";
+import Tooltip from "./Tooltip";
 type Props = {
   direction?: "horizontal" | "vertical";
   gap?: string;
@@ -13,7 +14,11 @@ type Props = {
 >;
 export default function SocialMediaLinks(props: Props) {
   const { app } = useMainLayout();
-  const { direction = "horizontal", gap = "10px", iconClass } = props;
+  const {
+    direction = "horizontal",
+    gap = "10px",
+    iconClass = "transition rounded-md cursor-pointer w-6 object-fill  hover:scale-110",
+  } = props;
   const socialMediaLinks = app?.socials;
   const fakeSocialMediaLinks = Array(3).fill(0);
   return (
@@ -24,6 +29,7 @@ export default function SocialMediaLinks(props: Props) {
         flexDirection: direction === "horizontal" ? "row" : "column",
         gap,
       }}
+      className="items-stretch "
       {...props}
     >
       {socialMediaLinks
@@ -52,15 +58,13 @@ function SocialMediaLink({
   social: iSocial;
   iconClass: React.HTMLAttributes<HTMLImageElement>["className"];
 }) {
+  const [isHovering, setIsHovering] = useState(false)
   return (
     <Skeleton key={social?.name} height={40} circle>
-      <a href={social?.link} target="_blank">
-        <Avatar
-          className={iconClass}
-          src={social?.icon}
-          alt={social?.name}
-          toolipText={social?.name}
-        />
+      <a href={social?.link} target="_blank" rel="noreferrer" className="relative" onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
+        <Icon icon={social.icon} />
+        <Tooltip shouldShow={isHovering} label={social.name} />
+
       </a>
     </Skeleton>
   );

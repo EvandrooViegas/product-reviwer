@@ -8,19 +8,19 @@ type Props = {
 const SkeletonContext = createContext<SkeletonContextProps | null>(null);
 
 export default function Skeleton(props: Props) {
-  const { children, beforeLoadOptions } = props;
+  const { children, beforeLoadOptions, ...rest } = props;
   const contextOptions = useContext(SkeletonContext);
   return (
     <SkeletonComp
-      {...contextOptions}
-      {...props}
-      {...(contextOptions?.visible ? beforeLoadOptions : {})}
+    {...contextOptions}
+    {...props}
+    {...(contextOptions?.visible ?  { ...contextOptions, ...beforeLoadOptions, ...rest } : { mt: "0px", width: "auto", height: "auto" })}
     >
       {children}
     </SkeletonComp>
   );
 }
-type SkeletonContextProps = {} & React.ComponentProps<typeof Skeleton>;
+type SkeletonContextProps =  React.ComponentProps<typeof Skeleton>;
 
 type SkeletonProviderProps = {
   contextProps: SkeletonContextProps;

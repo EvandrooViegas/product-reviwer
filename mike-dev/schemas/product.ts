@@ -1,9 +1,10 @@
 import { defineType, defineField } from "sanity"
-
+import { TbSquareRounded } from "react-icons/tb"
 export default defineType({
     name: "product",
     title: "Product",
     type: "document",
+    icon: TbSquareRounded,
     fields: [
         defineField({
             name: "name",
@@ -36,36 +37,37 @@ export default defineType({
             ]
         }),
         defineField({
+            name: "cupom",
+            title: "Cupom",
+            type: "reference",
+            to: [{ type: "cupom" }]
+            
+        }),
+        defineField({
             name: "links",
             title: "Links",
             type: "array",
-            of: [
-                {
-                    name: "link",
-                    type: "document",
-                    title: "Link",
-                    fields: [
-                        {
-                            title: "Link icon",
-                            name: "icon",
-                            type: "reference",
-                            to: [{ type: "icon" }],
-                        },
-                        {
-                            title: "Link",
-                            name: "url",
-                            type: "url",
-                        },
-                        {
-                            title: "Name",
-                            name: "name",
-                            type: "string",
-                        },
-                    ]
-                }
-            ]
-            
+            of: [{ 
+                name: "link",
+                title: "Link",
+                type: "reference",
+                to: [{ type: "link" }],
+                
+             }],
+          
         }),
-        
-    ]
+    ],
+    preview: {
+        select: {
+            title: "name",
+            banner: "banner",
+            image: "image"
+        },
+        prepare({ title, banner, image }) {
+            return {
+                title,
+                media: banner || image,
+            }
+        }
+    }
 })

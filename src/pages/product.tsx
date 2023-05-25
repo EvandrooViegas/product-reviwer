@@ -1,29 +1,42 @@
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getProduct } from "../services/product";
-import { iLink, iProduct } from "../types";
+import { iLink } from "../types";
 import Skeleton, { SkeletonProvider } from "../components/UI/Skeleton";
 import { Accordion, Divider } from "@mantine/core";
 import useAsyncData from "../hooks/useAsyncData";
 import { AccordionItem } from "../components/UI/Accordion";
 import CollectionRowCard from "../components/CollectionRowCard";
 import trimString from "../utils/trim-string";
+import { useNavbar } from "../stores/useNavbar";
+import { useProductContext } from "../stores/useProductContext";
 
+import Instagram from 'react-instagram-embed';
 export default function Product() {
   const params = useParams();
   const productId = params.id!;
+  const { setProductContext } = useProductContext((s) => s);
+  const { data: product, isLoading: isProductLoading } = useAsyncData(
+    () => getProduct(productId),
+    {
+      dependecies: [productId],
+      onFetch(data) {
+        if (data) setProductContext(data);
+      },
+    }
+  );
+  const { setShouldDisplayNavbar } = useNavbar();
+  useEffect(() => {
+    setShouldDisplayNavbar(true);
+  }, []);
 
-  const { data: product, isLoading: isProductLoading, error  } = useAsyncData(
-    () => getProduct(productId), {
-    dependecies: [productId],
-    delay: 4000
-  })
   return (
     <div className="py-20">
       <SkeletonProvider
         contextProps={{
           mt: "10px",
           radius: "35px",
-          visible: isProductLoading
+          visible: isProductLoading,
         }}
       >
         <Skeleton>
@@ -43,8 +56,8 @@ export default function Product() {
               <p>{product?.description}</p>
             </AccordionItem>
             <AccordionItem value="links" title="Links">
-              {product?.links.map((link) => (
-                <div  key={link._key} className="p-5">
+              {product?.links?.map?.((link) => (
+                <div key={link._key} className="p-5">
                   <ProductLink link={link} />
                   <Divider my="sm" />
                 </div>
@@ -59,16 +72,21 @@ export default function Product() {
           </Skeleton>
           {product?.collections?.map((collection) => (
             <CollectionRowCard
-             key={collection._id}
-             image={collection.image}
-             title={collection.name}
-             description={trimString(collection.description)}
+              key={collection._id}
+              image={collection.image}
+              title={collection.name}
+              description={trimString(collection.description)}
             />
           ))}
         </div>
         <Skeleton>
-          <span className="text-xs text-neutral-500 font-semibold">Criado em: {product?.formated_date}</span>
+          <span className="text-xs text-neutral-500 font-semibold">
+            Criado em: {product?.formated_date}
+          </span>
         </Skeleton>
+       <div className="transparent">
+         <Instagram url="https://www.instagram.com/p/CsjL8osIAgx/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==" />
+       </div>
       </SkeletonProvider>
     </div>
   );
@@ -81,6 +99,7 @@ function ProductLink(props: { link: iLink }) {
       <img src={link.icon} className="w-4 h-4" />
       <a
         href={link.url}
+        rel="noreferrer"
         target="_blank"
         className="text-neutral-300 cursor-pointer hover:underline text-sm"
       >

@@ -10,5 +10,5 @@ export interface iSocial extends base {
 }
 
 export interface _iSocial extends base {
-    icon: iSanityImage
+    icon: string
 }

@@ -1,9 +1,10 @@
 import { defineType, defineField } from "sanity"
-
+import { TbLayoutGrid } from "react-icons/tb"
 export default defineType({
     name: "collection",
     title: "Collection",
     type: "document",
+    icon: TbLayoutGrid,
     fields: [
         defineField({
             name: "name",

@@ -1,8 +1,8 @@
-import Skeleton from "./Skeleton";
-import { useMainLayout } from "./layouts/MainLayout";
-import Tooltip from "./Tooltip";
+import React, { LegacyRef, useState } from "react";
+
 import { forwardRef } from "react";
-import { iApp } from "../../types";
+import { useMainLayout } from "./layouts/MainLayout/contexts/MainLayoutContext";
+import Tooltip from "../Tooltip";
 type Props = {
   toolipText?: string;
 } & React.DetailedHTMLProps<
@@ -13,40 +13,25 @@ type Props = {
 const Avatar = forwardRef(
   (props: Props, ref?: React.ForwardedRef<HTMLDivElement>) => {
     const { app } = useMainLayout();
-    const { toolipText } = props;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, react/prop-types
+    const { toolipText, className, alt, src, ...rest } = props;
+    const [isHoveringImage, setIsHoveringImage] = useState(false);
+    const shouldRenderTooltip = Boolean(toolipText && isHoveringImage);
     return (
-      <div ref={ref}>
-        <Skeleton>
-          {!!toolipText ? (
-            <Tooltip label={toolipText} position="bottom" withArrow>
-              <Image elementProps={props} app={app} />
-            </Tooltip>
-          ) : (
-            <Image elementProps={props} app={app} />
-          )}
-        </Skeleton>
+      <div className={`relative ${className}`}>
+        <img
+          className={` rounded object-cover ${className}`}
+          alt={`Avatar Image ${alt}`}
+          src={src || app?.avatar || undefined}
+          ref={ref as LegacyRef<HTMLImageElement>}
+          onMouseOver={() => setIsHoveringImage(true)}
+          onMouseOut={() => setIsHoveringImage(false)}
+          {...rest}
+        />
+        <Tooltip shouldShow={shouldRenderTooltip} label={toolipText} />
       </div>
     );
   }
 );
-
 export default Avatar;
-
-const Image = forwardRef((
-  props: {
-    elementProps: Omit<React.ComponentProps<typeof Avatar>, "ref"> | undefined,
-    app: iApp | null
-  }, 
-  ref: React.ForwardedRef<HTMLImageElement>
-) => {
-  const { app, elementProps } = props
-  return (
-    <img
-    ref={ref}
-      {...props}
-      className={`relative rounded ${elementProps?.className}`}
-      alt={`Avatar Image ${elementProps?.alt}`}
-      src={elementProps?.src || app?.avatar || undefined}
-    />
-  );
-})
+Avatar.displayName = "Avatar";

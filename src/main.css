@@ -7,6 +7,12 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+
 }
 /* Fonts */
 .font-poppins {
@@ -15,6 +21,9 @@ body {
 
 .font-archivo {
   font-family: "Archivo", sans-serif;
+}
+.transparent {
+  background: transparent !important;
 }
 
 /* TEXT - GRADIENT */
@@ -44,7 +53,7 @@ body {
   @apply font-df;
   background: radial-gradient(
     91.7% 91.7% at 50% 2.41%,
-    #2d364e 0%,
+    #242836 0%,
     rgba(22, 22, 22, 0.85)
   );
 }
@@ -81,4 +90,12 @@ body {
 .center-h {
   left: 50%;
   transform: translateX(-50%);
+}
+
+.show-more-container {
+  transition: height 300ms;
+  overflow: hidden;
+}
+.z-nav {
+  z-index: 60;
 }

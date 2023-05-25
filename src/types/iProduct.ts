@@ -1,3 +1,4 @@
+import { iCupom } from "./iCupom";
 import {
   _iCollection,
   iCollection,
@@ -6,27 +7,27 @@ import {
   iSanityImage,
 } from "./index";
 
-export interface iProduct {
+interface base {
   _id: string;
   name: string;
   description?: string;
+  _type: string;
+  _createdAt: string;
+  cupom?: iCupom 
+}
+
+export interface iProduct extends base {
   image: string;
   banner: string;
   links: iLink[];
-  _type: string;
-  collections: iCollection[],
-  formated_date: string,
-  _createdAt: string
+  collections: iCollection[];
+  formated_date: string;
 }
 
-export interface _iProduct {
-  _id: string;
-  name: string;
-  description?: string;
+export interface _iProduct extends base {
+
   image: iSanityImage;
   banner: iSanityImage;
   links: _iLink[];
-  _type: string;
-  collections: _iCollection[],
-  _createdAt: string
+  collections: _iCollection[];
 }
