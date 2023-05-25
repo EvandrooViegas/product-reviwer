@@ -16,7 +16,7 @@ export default function useNode<NodeType>(props?: Props<NodeType>) {
  
 
   useEffect(() => {
-    onRerender?.(node);
+    if(node) onRerender?.(node);
   });
   return { ref, node };
 }

@@ -2,10 +2,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 type Props = {
     shouldShow: boolean,
-    label: string
+    label: string | undefined
 }
 export default function Tooltip(props:Props) {
     const { shouldShow, label } = props;
+    if(!label) return null
   return (
     <AnimatePresence>
       {shouldShow ? (

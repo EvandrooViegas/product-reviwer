@@ -85,7 +85,7 @@ export default function Product() {
           </span>
         </Skeleton>
        <div className="transparent">
-         <Instagram url="https://www.instagram.com/p/CsjL8osIAgx/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==" />
+         {/* <Instagram url="https://www.instagram.com/p/CsjL8osIAgx/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==" /> */}
        </div>
       </SkeletonProvider>
     </div>

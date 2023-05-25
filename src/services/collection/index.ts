@@ -10,7 +10,6 @@ function formatCollection(_collection: _iCollection): iCollection {
     banner: getImageUrl(_collection.banner),
     links: _collection.links?.map((link) => ({
       ...link,
-      icon: getImageUrl(link.icon),
     })),
     products: _collection.products?.map((product) => ({
       ...product,
