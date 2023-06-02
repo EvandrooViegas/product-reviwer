@@ -1,3 +1,4 @@
+
 export const layoutConfig = {
     maxWidth: 850,
     lgScreensMaxWidthPercentage: 0.55,

@@ -6,6 +6,7 @@ import { AnimateOnView } from "../AnimateOnView";
 import Title from "./Title";
 import Overlay from "../Overlay";
 import ShowIf from "../utils/ShowIf";
+import ShadowHoverImage from "../ShadowHoverImage";
 type Props = {
   item?: iCard;
   isLoading: boolean;
@@ -38,8 +39,8 @@ export default function Card(props: Props) {
               </ShowIf>
             </div>
             <div>
-              <img
-                className="rounded-xl w-full duration-200 object-cover h-72 group-hover:shadow-2xl group-hover:shadow-primary/20"
+              <ShadowHoverImage
+                className="rounded-xl w-full object-cover h-72  "
                 src={item?.image}
               />
               <div className="rounded-xl transition absolute inset-0 bg-black/20 group-hover:bg-black/10" />

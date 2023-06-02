@@ -1,16 +1,31 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, Location } from "react-router-dom";
 import { useState, useEffect } from "react";
 type Props = {
-  hash: string;
+  key: keyof Location;
+  path: string;
 };
-export function useURL(props: Props) {
-  const { hash } = props;
+type Pathname = "product" | "collection" | "home" | undefined;
+export function useURL(props?: Props) {
+  const { key, path } = props || {};
   const location = useLocation();
-  const [isActive, setIsActive] = useState(location.hash === hash);
-
-  const setLocation = (value: string) => (window.location.hash = value);
-useEffect(() => {
-    setIsActive(location.hash === hash)
-}, [location.hash])
-  return { isActive, setLocation, location };
+  const navigate = useNavigate();
+  const [isActive, setIsActive] = useState(
+    location && key
+      ? location[key] === path || location[key]?.includes(path)
+      : false
+  );
+  const setLocation = (value: string) => navigate(value);
+  const pathname: Pathname = (() => {
+    const path = location.pathname;
+    const slicedPath = path.split("/")[1]; // slice off trailing slash
+    if (slicedPath === "") return "home";
+    else if (slicedPath === "product") return "product";
+    else if (slicedPath === "collection") return "collection";
+    return;
+  })();
+  useEffect(() => {
+    if(!location || !key) return
+    setIsActive(location[key] === path);
+  }, [location]);
+  return { isActive, setLocation, location, pathname };
 }

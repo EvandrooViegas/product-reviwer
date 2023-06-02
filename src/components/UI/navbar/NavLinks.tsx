@@ -5,6 +5,7 @@ import { useURL } from "../../../hooks/useURL";
 import { useLocation } from "../../../hooks/useLocation";
 import { useProductContext } from "../../../stores/useProductContext";
 import { Link } from "react-router-dom";
+import formatCupomToText from "../../../formaters/format-cupom-to-text";
 
 type Props = {
   onNavLinkClick: ({ href }: { href: string }) => void;
@@ -39,7 +40,7 @@ export default function NavLinks(props: Props) {
         return [
           productContext?.cupom
             ? {
-                text: `Use ${productContext.cupom?.name} para ${productContext.cupom?.percentage}% de desconto`,
+                text: formatCupomToText({ cupom: productContext.cupom }),
                 isFancy: true,
                 isInfo: true,
               }
@@ -79,7 +80,10 @@ type LinkElementProps = Partial<
 function NavLink(props: NavLinkProps) {
   const { text, href, onNavLinkClick, isFancy, isInPage, isInfo, isExternal } =
     props;
-  const { isActive } = useURL({ hash: href });
+  const { isActive } = useURL({
+    key: href ? "hash" : "pathname",
+    path: href ? href : "",
+  });
   const className = `${
     isFancy ? "text-gradient-secondary" : ""
   } flex items-center gap-1`;

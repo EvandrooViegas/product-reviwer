@@ -15,6 +15,7 @@ export default function trimString(
 ) {
     
     const { start, end, decorator } = {...defaultTrimStringOptions, ...options}
-    const trimmedString = str.slice(start, end) + decorator
-    return trimmedString
+    const trimmedString = str.slice(start, end) 
+    const decoratedString = str.length > end ? trimmedString + decorator : trimmedString
+    return decoratedString
 }

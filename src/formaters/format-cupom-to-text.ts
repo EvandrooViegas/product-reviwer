@@ -5,5 +5,5 @@ type IFormatCupomToText = {
 }
 export default function formatCupomToText({ cupom }:IFormatCupomToText) {
     if(!cupom) return ""
-    return `use ${cupom.name} para ${cupom.percentage}% de desconto`
+    return `use '${cupom.name}' para ${cupom.percentage}% de desconto`
 }
