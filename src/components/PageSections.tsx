@@ -13,7 +13,7 @@ type Props = {
 >;
 export default function PageSections(props: Props) {
   const { hash, children, ...rest } = props;
-  const { setLocation } = useURL({ hash: hash });
+  const { setLocation } = useURL({ key: "hash", path: hash });
   const divId = hash.split("#")[1];
   const { isBeingSnaped } = useNavbar((s) => s);
 
@@ -26,7 +26,6 @@ export default function PageSections(props: Props) {
       setLocation(hash);
     }
   }, [isInView]);
-  console.log(children)
   return (
     <div {...rest} ref={ref} id={divId}>
       {isArray(children) ? children.map(child => <>{child}</>) : children} 
