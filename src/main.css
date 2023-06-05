@@ -48,6 +48,10 @@ html {
   text-fill-color: transparent;
 }
 
+.bg-gradient-secondary {
+  background: linear-gradient(267.1deg, #a9fff0 2.41%, #8fafff 89.4%);
+}
+
 .gradient-background {
   color: white;
   @apply font-df;

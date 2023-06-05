@@ -1,5 +1,8 @@
 import { defineType } from "sanity";
 import { BsLink45Deg } from "react-icons/bs"
+import { Icon } from '@iconify/react';
+
+
 export default defineType({
     name: "link",
     type: "document",
@@ -28,6 +31,13 @@ export default defineType({
         select: {
             media: "icon.icon",
             title: "name"
+        },
+        prepare(ctx) {
+            console.log(ctx)
+            return {
+                ...ctx,
+                media: <Icon icon={ctx.media }/>
+            }
         },
 
     }

@@ -7,6 +7,7 @@ import Title from "./Title";
 import Overlay from "../Overlay";
 import ShowIf from "../utils/ShowIf";
 import ShadowHoverImage from "../ShadowHoverImage";
+import BorderHoverImage from "../BorderHoverImage";
 type Props = {
   item?: iCard;
   isLoading: boolean;
@@ -39,7 +40,7 @@ export default function Card(props: Props) {
               </ShowIf>
             </div>
             <div>
-              <ShadowHoverImage
+              <BorderHoverImage
                 className="rounded-xl w-full object-cover h-72  "
                 src={item?.image}
               />

@@ -51,7 +51,7 @@ export default function Home() {
               shouldAnimate={!appQuery.isLoading}
               shouldAnimateOnce={true}
               containerClassName="flex flex-col md:grid md:grid-cols-[1fr_2fr]
-              justify-center  items-center gap-12
+              justify-center  items-center gap-12 
               "
             >
 

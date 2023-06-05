@@ -16,7 +16,7 @@ export default function Swiper(props: Props) {
   const { children, ...rest } = props;
   const { width } = useLayout()
   return (
-      <div className="flex justify-center" style={{ width}}>
+      <div className="flex justify-center " >
         <SwiperComp
       className="swiper rounded"
       loop={true}

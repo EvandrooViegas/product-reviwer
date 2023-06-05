@@ -6,6 +6,8 @@ import { useLocation } from "../../../hooks/useLocation";
 import { useProductContext } from "../../../stores/useProductContext";
 import { Link } from "react-router-dom";
 import formatCupomToText from "../../../formaters/format-cupom-to-text";
+import { useMainLayout } from "../layouts/MainLayout/contexts/MainLayoutContext";
+import Skeleton from "../Skeleton";
 
 type Props = {
   onNavLinkClick: ({ href }: { href: string }) => void;
@@ -24,6 +26,8 @@ export default function NavLinks(props: Props) {
   const { onNavLinkClick } = props || {};
   const { currentLocation } = useLocation();
   const { productContext } = useProductContext((s) => s);
+  const appQuery = useMainLayout()
+
 
   const navLinks = useMemo(() => {
     switch (currentLocation) {
@@ -54,6 +58,14 @@ export default function NavLinks(props: Props) {
       }
     }
   }, [currentLocation, productContext]) as NavLink[];
+
+  if(appQuery.isLoading) {
+    return (
+      <div className="flex items-center gap-4">
+        {Array(3).fill(1).map((_, idx) => <Skeleton key={idx} width={100} height={40} />)}
+      </div>
+    )
+  }
 
   return (
     <ul className="flex items-center  gap-6">

@@ -37,6 +37,11 @@ export default defineType({
             ]
         }),
         defineField({
+            name: "video",
+            title: "Review Video Link",
+            type: "url",
+        }),
+        defineField({
             name: "cupom",
             title: "Cupom",
             type: "reference",

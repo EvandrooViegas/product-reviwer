@@ -7,11 +7,16 @@ import { useProductContext } from "../stores/useProductContext";
 import Title from "../components/UI/Title";
 import TrimmedText from "../components/TrimmedText";
 import Skeleton, { SkeletonProvider } from "../components/UI/Skeleton";
-import ShadowHoverImage from "../components/ShadowHoverImage";
 import CollectionRowCard from "../components/CollectionRowCard";
 import { Link } from "react-router-dom";
 import ShowMoreItems from "../components/ShowMoreItems";
 import ProductLink from "../components/ProductLink";
+import ItemTypeIndicator from "../components/ItemTypeIndicator";
+import BorderHoverImage from "../components/BorderHoverImage";
+import { YoutubeVideoPlayer } from "./home/components/YoutubeVideoPlayer";
+
+
+const SectionTitle = ({ title }:{ title: string }) => <Title className="items-start text-left text-xs">{title}</Title>
 
 export default function Product() {
   const params = useParams();
@@ -21,7 +26,6 @@ export default function Product() {
     () => getProduct(productId || ""),
     {
       dependecies: [productId],
-      delay: 2000,
       onFetch(data) {
         if (data) setProductContext(data);
       },
@@ -32,9 +36,12 @@ export default function Product() {
     setShouldDisplayNavbar(true);
   }, []);
 
+  console.log(product)
+
   const sectionClassName = "flex w-full flex-col gap-1 items-start";
   const hasCollections = Boolean(product?.collections?.length);
   const hasLinks = Boolean(product?.links?.length);
+  const hasReviewVideo = Boolean(product?.video)
   if (!isProductLoading && !product) {
     return (
       <div className="flex h-full flex-col items-center justify-center gap-4 text-2xl font-bold">
@@ -52,7 +59,7 @@ export default function Product() {
   if (isProductLoading) {
     return (
       <SkeletonProvider contextProps={{ visible: isProductLoading }}>
-        <div className="mt-40 flex flex-col gap-12">
+        <div className="flex flex-col gap-12">
           <section>
             {/* Info Section */}
             <Skeleton className="h-[400px] w-full" />
@@ -75,56 +82,51 @@ export default function Product() {
       </SkeletonProvider>
     );
   }
-
   return (
-    <div className="mt-40 flex w-full flex-col gap-14">
+    <div className="flex w-full flex-col gap-14">
       <section className={sectionClassName}>
-        <ShadowHoverImage
+        <BorderHoverImage
           src={product?.image}
           className="h-[400px] w-full rounded object-cover"
         />
-        <Title className="items-start text-left text-2xl">
+        <SectionTitle title="Info: " />
+        <ItemTypeIndicator type={product?._type} />
+        <Title className="items-start text-left text-2xl" fancy={true}>
           {product?.name}
         </Title>
         <TrimmedText
-          className="flex flex-col gap-5 text-sm text-neutral-500"
+          className="flex flex-col gap-5 text-xs text-neutral-500"
           text={product?.description}
         />
       </section>
-      {hasCollections && (
+      {hasCollections ? (
         <section className={sectionClassName}>
-          <>
-            <Title className="items-start text-left text-xs">
-              Incluido em:{" "}
-            </Title>
-            <ShowMoreItems className="flex flex-col gap-5">
-              {product?.collections.map((collection) => (
-                <CollectionRowCard
-                  isLoading={isProductLoading}
-                  collection={collection}
-                  key={collection._id}
-                />
-              ))}
-            </ShowMoreItems>
-          </>
+          <SectionTitle title="Incluido em: " />
+
+          <ShowMoreItems className="flex flex-col gap-5">
+            {product?.collections?.map((collection) => (
+              <CollectionRowCard collection={collection} key={collection._id} />
+            ))}
+          </ShowMoreItems>
         </section>
-      )}
-      {hasLinks && (
+      ) : null}
+      {hasLinks ? (
         <section className={sectionClassName}>
-          <>
-            <Title className="items-start text-left text-xs">Links: </Title>
-            <ShowMoreItems className="flex flex-col gap-5">
-              {product?.links.map((link) => (
-                <ProductLink
-                  isLoading={isProductLoading}
-                  link={link}
-                  key={link._key}
-                />
-              ))}
-            </ShowMoreItems>
-          </>
+          <SectionTitle title="Links: " />
+
+          <ShowMoreItems className="flex flex-col gap-2">
+            {product?.links.map((link) => (
+              <ProductLink link={link} key={link._key} />
+            ))}
+          </ShowMoreItems>
         </section>
-      )}
+      ) : null}
+      {hasReviewVideo ? (
+        <section className="flex flex-col gap-1">
+          <SectionTitle title="Video: " />
+          <YoutubeVideoPlayer url={product?.video} shouldAnimate={false} isLoading={isProductLoading} showCaptions={false} />
+        </section>
+      ) : null}
     </div>
   );
 }

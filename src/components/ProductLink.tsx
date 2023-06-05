@@ -6,35 +6,24 @@ import { Icon } from "@iconify/react";
 
 type Props = {
   link: iLink | null;
-  isLoading: boolean;
 };
 export default function ProductLink(props: Props) {
-  const { link, isLoading } = props || {};
+  const { link } = props || {};
   //if its is already loaded and the products doesn't exist return null
-  if (!link && !isLoading) return null;
-  const shouldShowSkeleton = !link && isLoading;
-
+  if (!link) return null; 
   return (
-      <a
-        className="flex  gap-4 "
-        href={link?.url || ""}
-        target="_blank"
-        rel="noreferrer"
-      >
-        {shouldShowSkeleton ? (
-          <Skeleton className="w-14 h-14" />
-        ) : (
-          <Icon icon={link?.icon || ""} />
-        )}
-        {shouldShowSkeleton ? (
-          <Skeleton beforeLoadOptions={{ width: "100%", height: "56px" }} />
-        ) : (
-          <div className="flex flex-col items-start gap-3 text-sm">
-            <span className="items-start text-left text-base border-dashed border-b border-white/30 hover:border-indigo-400">
-              {link?.name}
-            </span>
-          </div>
-        )}
-      </a>
+    <a
+      className="flex  gap-4 "
+      href={link?.url || ""}
+      target="_blank"
+      rel="noreferrer"
+    >
+      {link.icon ? <Icon icon={link?.icon || ""} /> : null}
+      <div className="flex flex-col items-start gap-3 text-sm">
+        <span className="items-start border-b border-dashed border-white/30 text-left text-base hover:border-indigo-400">
+          {link?.name}
+        </span>
+      </div> 
+    </a>
   );
 }

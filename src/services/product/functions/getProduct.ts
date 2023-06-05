@@ -7,7 +7,7 @@ export async function getProduct(productId: string) {
       `*[_type == "product" && _id == '${productId}'][0]{
               ...,
             "collections": *[_type == "collection" && '${productId}' in products[]._ref],
-            links[]{
+            links[]->{
               ...,
               "icon": icon->icon
             },

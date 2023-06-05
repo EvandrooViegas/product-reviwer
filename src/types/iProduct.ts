@@ -8,6 +8,7 @@ import {
 } from "./index";
 
 interface base {
+  video: string;
   _id: string;
   name: string;
   description?: string;
