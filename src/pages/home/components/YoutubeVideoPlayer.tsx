@@ -38,7 +38,7 @@ export function YoutubeVideoPlayer(props: Props) {
     <AnimateOnView
       animate={
         shouldAnimate
-          ? { x: [100, 0], opacity: [0.4, 1], transition: { delay: 0.2 } }
+          ? { opacity: [0.4, 1], transition: { delay: 0.2 } }
           : undefined
       }
       shouldAnimateOnce={true}

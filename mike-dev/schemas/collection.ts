@@ -14,7 +14,7 @@ export default defineType({
         defineField({
             name: "description",
             title: "Description of the collection",
-            type: "string"
+            type: "text"
         }),
         defineField({
             name: "image",
@@ -29,7 +29,24 @@ export default defineType({
                 rule.required().error("A banner is required")
             ]
         }),
-
+        defineField({
+            name: "video",
+            title: "Video Link",
+            type: "url",
+        }),
+        defineField({
+            name: "links",
+            title: "Links",
+            type: "array",
+            of: [{ 
+                name: "link",
+                title: "Link",
+                type: "reference",
+                to: [{ type: "link" }],
+                
+             }],
+          
+        }),
         defineField({
             name: "products",
             title: "Collection products",
@@ -41,8 +58,21 @@ export default defineType({
                 to: [{ type: "product" }]
             }],
             validation: rule => [
-                rule.min(1).error("Collection must contain at least one product")
+                rule.required().min(1).error("Collection must contain at least one product")
             ]
         }),
-    ]
+    ],
+    preview: {
+        select: {
+            title: "name",
+            banner: "banner",
+            image: "image"
+        },
+        prepare({ title, banner, image }) {
+            return {
+                title,
+                media: banner || image,
+            }
+        }
+    }
 })

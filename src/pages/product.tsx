@@ -7,16 +7,18 @@ import { useProductContext } from "../stores/useProductContext";
 import Title from "../components/UI/Title";
 import TrimmedText from "../components/TrimmedText";
 import Skeleton, { SkeletonProvider } from "../components/UI/Skeleton";
-import CollectionRowCard from "../components/CollectionRowCard";
-import { Link } from "react-router-dom";
+import CollectionRowCard from "../components/RowCard";
 import ShowMoreItems from "../components/ShowMoreItems";
-import ProductLink from "../components/ProductLink";
+import { Link as RRDLink } from "react-router-dom";
+import Link from "../components/Link";
 import ItemTypeIndicator from "../components/ItemTypeIndicator";
 import BorderHoverImage from "../components/BorderHoverImage";
 import { YoutubeVideoPlayer } from "./home/components/YoutubeVideoPlayer";
+import RowCard from "../components/RowCard";
 
-
-const SectionTitle = ({ title }:{ title: string }) => <Title className="items-start text-left text-xs">{title}</Title>
+export const SectionTitle = ({ title }: { title: string }) => (
+  <Title className="items-start text-left text-xs">{title}</Title>
+);
 
 export default function Product() {
   const params = useParams();
@@ -36,22 +38,21 @@ export default function Product() {
     setShouldDisplayNavbar(true);
   }, []);
 
-  console.log(product)
-
   const sectionClassName = "flex w-full flex-col gap-1 items-start";
   const hasCollections = Boolean(product?.collections?.length);
   const hasLinks = Boolean(product?.links?.length);
-  const hasReviewVideo = Boolean(product?.video)
+  const hasReviewVideo = Boolean(product?.video);
+
   if (!isProductLoading && !product) {
     return (
       <div className="flex h-full flex-col items-center justify-center gap-4 text-2xl font-bold">
         <h3>O produto não está disponível</h3>
-        <Link
+        <RRDLink
           to="/"
           className="rounded bg-white/30 px-4 py-2 text-sm transition-all hover:bg-white/40"
         >
           Voltar para a home
-        </Link>
+        </RRDLink>
       </div>
     );
   }
@@ -101,12 +102,19 @@ export default function Product() {
       </section>
       {hasCollections ? (
         <section className={sectionClassName}>
-          <SectionTitle title="Incluido em: " />
+          <SectionTitle title="Incluído em: " />
 
-          <ShowMoreItems className="flex flex-col gap-5">
-            {product?.collections?.map((collection) => (
-              <CollectionRowCard collection={collection} key={collection._id} />
-            ))}
+          <ShowMoreItems className="flex flex-col gap-5 w-full" visibleItemsQty={3}>
+            {product?.collections?.map((collection) => collection ? (
+                <RowCard
+                  element={{ 
+                    ...collection,
+                    link: `/collection/${collection?._id}`,
+                  }}
+                  key={collection._id}
+                />
+              ) : null
+            )}
           </ShowMoreItems>
         </section>
       ) : null}
@@ -116,7 +124,7 @@ export default function Product() {
 
           <ShowMoreItems className="flex flex-col gap-2">
             {product?.links.map((link) => (
-              <ProductLink link={link} key={link._key} />
+              <Link link={link} key={link._key} />
             ))}
           </ShowMoreItems>
         </section>
@@ -124,7 +132,12 @@ export default function Product() {
       {hasReviewVideo ? (
         <section className="flex flex-col gap-1">
           <SectionTitle title="Video: " />
-          <YoutubeVideoPlayer url={product?.video} shouldAnimate={false} isLoading={isProductLoading} showCaptions={false} />
+          <YoutubeVideoPlayer
+            url={product?.video}
+            shouldAnimate={false}
+            isLoading={isProductLoading}
+            showCaptions={false}
+          />
         </section>
       ) : null}
     </div>

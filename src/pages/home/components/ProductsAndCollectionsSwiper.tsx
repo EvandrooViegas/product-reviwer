@@ -28,7 +28,7 @@ export default function ProductsAndCollectionsSwiper() {
 
       <Skeleton visible={isLoading} beforeLoadOptions={{ width, height: 400 }}>
         <AnimateOnView
-          animate={{ x: [-100, 0], opacity: [0.4, 1], transition: { delay: 0.2 } }}
+          animate={{ opacity: [0.4, 1], transition: { delay: 0.2 } }}
           shouldAnimateOnce={true}
           shouldAnimate={!isLoading}
         >
@@ -64,9 +64,9 @@ export default function ProductsAndCollectionsSwiper() {
                       </div>
                       <div className="relative flex flex-col gap-3 items-center">
                         <Title>{element.title}</Title>
-                        <p className="text-xs text-center text-neutral-300 w-2/3">
+                        <p className="text-xs text-center text-neutral-300 md:w-2/3 ">
                           {trimString(element.description, {
-                            end: 100,
+                            end: 60,
                           })}
                         </p>
                       </div>

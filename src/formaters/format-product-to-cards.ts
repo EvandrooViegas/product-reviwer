@@ -7,7 +7,7 @@ export const formatProductsToCards = (
   products: iProduct[] | null
 ): iCard[] | null => {
   return (
-    products?.map((product) => ({
+    Array.isArray(products) ? products.map((product) => ({
       id: product._id,
       image: product.banner,
       text: product.name,
@@ -17,6 +17,6 @@ export const formatProductsToCards = (
       description: trimString(product.description || "", {
         end: cardsConfig.maxStringLength,
       }),
-    })) || null
+    })) : null
   );
 };

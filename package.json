@@ -24,6 +24,7 @@
     "react-icons": "^4.8.0",
     "react-loading-skeleton": "^3.3.1",
     "react-router-dom": "^6.11.2",
+    "react-simple-typewriter": "^5.0.1",
     "react-transition-group": "^4.4.5",
     "react-youtube": "^10.1.0",
     "sanity": "^3.8.3",

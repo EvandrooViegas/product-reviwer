@@ -58,9 +58,8 @@ export default function Home() {
              <div ref={elementToObserve}>
              <AnimateOnView
                 animate={{
-                  x: [-200, 0],
                   opacity: [0.4, 1],
-                  transition: { duration: 0.67 },
+                  transition: { duration:1 },
                 }}
                 className="flex justify-center "
               >
@@ -75,9 +74,8 @@ export default function Home() {
 
               <AnimateOnView
                 animate={{
-                  x: [200, 0],
                   opacity: [0.4, 1],
-                  transition: { duration: 0.67 },
+                  transition: { duration:1},
                 }}
               >
                 <Describer />

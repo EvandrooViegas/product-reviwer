@@ -7,7 +7,7 @@ export const formatCollectionsToCards = (
     collections: iCollection[] | null
   ): iCard[] | null => {
     return (
-      collections?.map((collection) => ({
+      Array.isArray(collections) ? collections?.map((collection) => ({
         id: collection._id,
         image: collection.banner,
         text: collection.name,
@@ -16,6 +16,6 @@ export const formatCollectionsToCards = (
         description: trimString(collection.description || "", {
           end: cardsConfig.maxStringLength
         }),
-      })) || null
+      })) : null
     );
   };

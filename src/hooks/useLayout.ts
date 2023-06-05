@@ -10,6 +10,6 @@ export default function useLayout() {
     width:
       role === "sm"
         ? windowSize.width * layoutConfig.smScreensMaxWidthPercentage
-        : windowSize .width * layoutConfig.lgScreensMaxWidthPercentage,
+        : windowSize.width * layoutConfig.lgScreensMaxWidthPercentage,
   };
 }

@@ -22,6 +22,7 @@ type Props = {
 
 export default function CardList(props: Props) {
   const { list, title, isLoading, showTitle = true, ...rest } = props;
+  if(!list) return null
   const listType = list?.[0].type || null;
   const fakeData = new Array(4).fill(0);
   const cardListTitle =

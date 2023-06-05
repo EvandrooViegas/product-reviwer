@@ -7,7 +7,8 @@ interface base {
     name: string,
     description: string,
     _type: string,
-    _createdAt: string
+    _createdAt: string,
+    video: string,
 }
 export interface  iCollection extends base {
     image: string,

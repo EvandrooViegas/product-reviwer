@@ -48,7 +48,7 @@ export async function getCollection(collectionId: string) {
     `*[_type == "collection" && _id == '${collectionId}'][0]{
             ...,
           products[]->,
-          links[]{
+          links[]->{
             ...,
             "icon": icon->icon
           }

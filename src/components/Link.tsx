@@ -7,7 +7,7 @@ import { Icon } from "@iconify/react";
 type Props = {
   link: iLink | null;
 };
-export default function ProductLink(props: Props) {
+export default function Link(props: Props) {
   const { link } = props || {};
   //if its is already loaded and the products doesn't exist return null
   if (!link) return null; 

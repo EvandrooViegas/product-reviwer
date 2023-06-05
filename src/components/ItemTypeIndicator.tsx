@@ -10,7 +10,7 @@ export default function ItemTypeIndicator(props: Props) {
   if (!type) return null;
   const itemType = type.includes("product") ? "Produto" : "Coleção"
   const Icon = type.includes("product") ? TbSquareRounded : TbLayoutGrid  
-  return <div className="text-sm transition-all border border-dashed  px-4 py-1 rounded border-white/20 hover:border-white/30 flex gap-2 cursor-pointer items-center justify-center">
+  return <div className="text-sm transition-all border  rounded border-white/20 hover:border-white/30 flex gap-2 cursor-pointer items-center justify-center border-dashed  px-4 py-1">
     <Icon />
     <span>{itemType}</span>
 

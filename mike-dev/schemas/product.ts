@@ -17,7 +17,7 @@ export default defineType({
         defineField({
             name: "description",
             title: "Description",
-            type: "string",
+            type: "text",
             validation: rule => [
                 rule.required().error("You must specify a description")
             ]
@@ -38,7 +38,7 @@ export default defineType({
         }),
         defineField({
             name: "video",
-            title: "Review Video Link",
+            title: "Video Link",
             type: "url",
         }),
         defineField({
