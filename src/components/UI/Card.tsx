@@ -6,7 +6,6 @@ import { AnimateOnView } from "../AnimateOnView";
 import Title from "./Title";
 import Overlay from "../Overlay";
 import ShowIf from "../utils/ShowIf";
-import ShadowHoverImage from "../ShadowHoverImage";
 import BorderHoverImage from "../BorderHoverImage";
 type Props = {
   item?: iCard;
@@ -48,7 +47,7 @@ export default function Card(props: Props) {
             </div>
           </Skeleton>
           <Skeleton visible={isLoading}>
-            <Title className="text-zinc-200 font-semibold text-sm my-1.5">
+            <Title  className="text-zinc-200 font-semibold text-sm my-1.5">
               {item?.text}
             </Title>
           </Skeleton>

@@ -1,14 +1,15 @@
 
-import { iSanityImage } from "./index"
-interface base {
+import { iIcon } from "./index"
+
+export interface iSocial {
     link: string,
-    icon: string | iSanityImage,
+    icon: iIcon,
     name: string
 }
-export interface iSocial extends base {
-    icon: string,
-}
 
-export interface _iSocial extends base {
-    icon: string
+
+export interface _iSocial  {
+    link: string,
+    icon: iIcon,
+    name: string
 }

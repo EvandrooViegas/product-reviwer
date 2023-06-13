@@ -1,10 +1,12 @@
-import Skeleton from "./UI/Skeleton";
-import { Icon } from '@iconify/react';
-import React, { useState } from "react";
+import { Icon } from "@iconify/react";
+import React, { useState, memo, createContext, useContext } from "react";
 import { iSocial } from "../types";
 import { useMainLayout } from "./UI/layouts/MainLayout/contexts/MainLayoutContext";
 import Tooltip from "./Tooltip";
+import Skeleton from "./UI/Skeleton";
 type Props = {
+  isLoading: boolean;
+
   direction?: "horizontal" | "vertical";
   gap?: string;
   iconClass?: React.HTMLAttributes<HTMLImageElement>["className"];
@@ -12,15 +14,20 @@ type Props = {
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >;
-export default function SocialMediaLinks(props: Props) {
+
+
+const SocialMediaLinks = (props: Props) => {
   const { app } = useMainLayout();
+
   const {
+    isLoading = false,
     direction = "horizontal",
     gap = "10px",
     iconClass = "transition rounded-md cursor-pointer w-6 object-fill  hover:scale-110",
   } = props;
   const socialMediaLinks = app?.socials;
-  const fakeSocialMediaLinks = Array(3).fill(0);
+  const fakeList = Array(4).fill(0)
+  const list = isLoading ? fakeList : socialMediaLinks
   return (
     <div
       style={{
@@ -32,40 +39,45 @@ export default function SocialMediaLinks(props: Props) {
       className="items-stretch "
       {...props}
     >
-      {socialMediaLinks
-        ? socialMediaLinks.map((social) => (
-            <SocialMediaLink
-              social={social}
-              iconClass={iconClass}
-              key={social.link}
-            />
-          ))
-        : fakeSocialMediaLinks.map((social) => (
-            <SocialMediaLink
-              social={social}
-              iconClass={iconClass}
-              key={social.link}
-            />
-          ))}
+      {list?.map((social) => (
+        <SocialMediaLink
+          social={social}
+          iconClass={iconClass}
+          key={social.link}
+          isLoading={isLoading}
+        />
+      ))}
     </div>
   );
-}
+};
 
+
+
+export default memo(SocialMediaLinks);
 function SocialMediaLink({
   social,
-  iconClass,
+  isLoading
 }: {
   social: iSocial;
   iconClass: React.HTMLAttributes<HTMLImageElement>["className"];
+  isLoading: boolean;
 }) {
-  const [isHovering, setIsHovering] = useState(false)
+  const [isHovering, setIsHovering] = useState(false);
+  if(isLoading) return <Skeleton width={50} height={50} circle />
+  if (!social) return null;
   return (
-    <Skeleton key={social?.name} height={40} circle>
-      <a href={social?.link} target="_blank" rel="noreferrer" className="relative" onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
-        <Icon icon={social.icon} />
-        <Tooltip shouldShow={isHovering} label={social.name} />
-
-      </a>
-    </Skeleton>
+    <a
+      href={social.link}
+      target="_blank"
+      rel="noreferrer"
+      className="relative"
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+    >
+      <Icon icon={social.icon.icon} />
+      <Tooltip shouldShow={isHovering} label={social.name} />
+    </a>
   );
 }
+
+

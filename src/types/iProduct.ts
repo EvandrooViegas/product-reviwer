@@ -1,4 +1,5 @@
 import { iCupom } from "./iCupom";
+import { iVideo } from "./iVideo";
 import {
   _iCollection,
   iCollection,
@@ -8,13 +9,14 @@ import {
 } from "./index";
 
 interface base {
-  video: string;
+  video: iVideo;
   _id: string;
   name: string;
   description?: string;
   _type: string;
   _createdAt: string;
-  cupom?: iCupom 
+  cupom?: iCupom;
+  
 }
 
 export interface iProduct extends base {

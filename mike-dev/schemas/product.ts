@@ -11,7 +11,7 @@ export default defineType({
             title: "Name",
             type: "string",
             validation: rule => [
-                rule.required().max(80).error("Title must not be longer than 80 characters")
+                rule.required().max(20).error("Title must not be longer than 80 characters")
             ]
         }),
         defineField({
@@ -38,8 +38,9 @@ export default defineType({
         }),
         defineField({
             name: "video",
-            title: "Video Link",
-            type: "url",
+            title: "Video",
+            type: "reference",
+            to: [{ type: "video" }]
         }),
         defineField({
             name: "cupom",

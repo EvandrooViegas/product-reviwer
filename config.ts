@@ -6,6 +6,6 @@ export const layoutConfig = {
 }
 
 export const cardsConfig = {
-    maxStringLength: 120
+    maxStringLength: 85
 }
 

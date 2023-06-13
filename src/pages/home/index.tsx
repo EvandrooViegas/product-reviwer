@@ -13,7 +13,6 @@ import Describer from "./components/Describer";
 import CardList from "../../components/UI/CardList";
 import { AnimateOnViewProvider } from "../../components/AnimateOnView/contexts/AnimateOnViewProvider";
 import { useMainLayout } from "../../components/UI/layouts/MainLayout/contexts/MainLayoutContext";
-import Skeleton from "../../components/UI/Skeleton";
 import useIntersection from "../../hooks/useIntersection";
 import { useNavbar } from "../../stores/useNavbar";
 import shallow from "zustand/shallow";
@@ -40,49 +39,50 @@ export default function Home() {
   const products = productsQuery?.data;
 
   //loading states
+  const isAppLoading = appQuery?.isLoading;
   const isCollectionsLoading = collectionsQuery?.isLoading;
   const isProductsLoading = productsQuery?.isLoading;
 
   return (
     <HomeContext.Provider value={{ appQuery, collectionsQuery, productsQuery }}>
-      <div className="rounded-df p-4 flex flex-col gap-32">
-        <PageSections hash="#home" className=" flex flex-col gap-32" >
-            <AnimateOnViewProvider
-              shouldAnimate={!appQuery.isLoading}
-              shouldAnimateOnce={true}
-              containerClassName="flex flex-col md:grid md:grid-cols-[1fr_2fr]
+      <div className="rounded-df flex flex-col gap-32 p-4">
+        <PageSections hash="#home" className=" flex flex-col gap-32">
+          <AnimateOnViewProvider
+            shouldAnimate={!appQuery.isLoading}
+            shouldAnimateOnce={true}
+            containerClassName="flex flex-col md:grid md:grid-cols-[1fr_2fr]
               justify-center  items-center gap-12 
               "
-            >
-
-             <div ref={elementToObserve}>
-             <AnimateOnView
-                animate={{
-                  opacity: [0.4, 1],
-                  transition: { duration:1 },
-                }}
-                className="flex justify-center "
-              >
-                  <Skeleton>
-                    <Avatar
-                      className="max-w-[270px] transition-all rotate-3 hover:rotate-0  "
-                      toolipText={app?.name}
-                    />
-                  </Skeleton>
-              </AnimateOnView>
-             </div>
-
+          >
+            <div ref={elementToObserve}>
               <AnimateOnView
                 animate={{
                   opacity: [0.4, 1],
-                  transition: { duration:1},
+                  transition: { duration: 1 },
                 }}
+                className="flex justify-center "
               >
-                <Describer />
+                <Avatar
+                  width={270}
+                  height={270}
+                  isLoading={isAppLoading}
+                  className="max-w-[270px] rotate-3 transition-all hover:rotate-0  "
+                  toolipText={app?.name}
+                />
               </AnimateOnView>
-            </AnimateOnViewProvider>
+            </div>
+
+            <AnimateOnView
+              animate={{
+                opacity: [0.4, 1],
+                transition: { duration: 1 },
+              }}
+            >
+                <Describer isLoading={isAppLoading}  />
+            </AnimateOnView>
+          </AnimateOnViewProvider>
           <ProductsAndCollectionsSwiper />
-          <YoutubeVideoPlayer />  
+          <YoutubeVideoPlayer />
         </PageSections>
         <PageSections hash="#produtos">
           <CardList

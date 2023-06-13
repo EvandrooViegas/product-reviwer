@@ -9,8 +9,9 @@ export async function getProduct(productId: string) {
             "collections": *[_type == "collection" && '${productId}' in products[]._ref],
             links[]->{
               ...,
-              "icon": icon->icon
+              "icon": icon->icon,
             },
+            video->,
             cupom->
           }`
     );

@@ -83,6 +83,7 @@ export default function Product() {
       </SkeletonProvider>
     );
   }
+
   return (
     <div className="flex w-full flex-col gap-14">
       <section className={sectionClassName}>
@@ -104,7 +105,7 @@ export default function Product() {
         <section className={sectionClassName}>
           <SectionTitle title="Incluído em: " />
 
-          <ShowMoreItems className="flex flex-col gap-5 w-full" visibleItemsQty={3}>
+          <ShowMoreItems className="flex flex-col gap-5 w-full mt-1" visibleItemsQty={3}>
             {product?.collections?.map((collection) => collection ? (
                 <RowCard
                   element={{ 
@@ -133,10 +134,9 @@ export default function Product() {
         <section className="flex flex-col gap-1">
           <SectionTitle title="Video: " />
           <YoutubeVideoPlayer
-            url={product?.video}
+            video={product?.video}
             shouldAnimate={false}
             isLoading={isProductLoading}
-            showCaptions={false}
           />
         </section>
       ) : null}

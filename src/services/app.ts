@@ -24,19 +24,20 @@ function formatApp(_app: _iApp): iApp {
 }
 export async function getApp() {
   const _app: _iApp = await sanity.fetch(`*[_type == 'app'][0]{
+    ...,
+    describer->,
+    video->,
+    swiper->{
+      elements[]->{
         ...,
-        socials[]{
-          ...,
-          "icon": icon->icon
-        },
-        swiper {
-          ...,
-          elements[]->{
-           ...,
-           cupom-> 
-          }
-        }
-    }`);
+        cupom->
+      }
+    },
+    socials[]->{
+      ...,
+      icon->
+    }
+  }`);
 
   return formatApp(_app);
 }

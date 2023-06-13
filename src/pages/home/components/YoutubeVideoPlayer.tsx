@@ -6,15 +6,17 @@ import Youtube from "react-youtube";
 import Title from "../../../components/UI/Title";
 import useLayout from "../../../hooks/useLayout";
 import { AnimateOnView } from "../../../components/AnimateOnView";
+import { iVideo } from "../../../types/iVideo";
+import TrimmedText from "../../../components/TrimmedText";
 type Props = {
-  url?: string;
+  video?: iVideo;
   shouldAnimate?: boolean;
   isLoading?: boolean;
   showCaptions?: boolean;
 };
 export function YoutubeVideoPlayer(props: Props) {
   const {
-    url,
+    video,
     shouldAnimate = true,
     isLoading = false,
     showCaptions = true,
@@ -27,13 +29,22 @@ export function YoutubeVideoPlayer(props: Props) {
   //data
   const { appQuery } = useHomeContext();
   const app = appQuery?.app;
-  const video = app?.video;
 
-  const videoUrl = url || video?.url;
+  const videoUrl = video?.url || app?.video?.url;
+  const videoTitle = video?.title || app?.video?.title;
+  const videoDescription = video?.description || app?.video?.description;
+
   const shouldShowSkeleton =
     "isLoading" in props ? isLoading : appQuery.isLoading;
-  if (!videoUrl) return null;
 
+  if (!videoUrl) return null;
+  if (shouldShowSkeleton)
+    return (
+      <Skeleton
+        style={{ width: videoWidth, height: videoHeight }}
+        visible={true}
+      />
+    );
   return (
     <AnimateOnView
       animate={
@@ -42,26 +53,22 @@ export function YoutubeVideoPlayer(props: Props) {
           : undefined
       }
       shouldAnimateOnce={true}
-      className="flex flex-col items-stretch gap-5"
+      className="flex flex-col items-stretch gap-2.5"
     >
-      {showCaptions ? <Title>{video?.title}</Title> : null}
+      {showCaptions ? <Title className="text-base mb-1" alignment="left">{videoTitle}</Title> : null}
       <div className="relative" style={{ height: videoHeight, width: "100%" }}>
         <div className="absolute inset-0 overflow-hidden rounded">
-          {shouldShowSkeleton ? (
-            <Skeleton
-              style={{ width: videoWidth, height: videoHeight }}
-              visible={true}
-            />
-          ) : (
-            <Youtube
-              videoId={getYoutubeVideoId(videoUrl)}
-              opts={{ width: "100%", height: videoHeight }}
-            />
-          )}
+          <Youtube
+            videoId={getYoutubeVideoId(videoUrl)}
+            opts={{ width: "100%", height: videoHeight }}
+          />
         </div>
       </div>
       {showCaptions ? (
-        <p className="text-sm text-neutral-400">{video?.description}</p>
+        <TrimmedText
+          text={videoDescription}
+          className="flex flex-col items-center gap-3 text-xs text-neutral-400"
+        />
       ) : null}
     </AnimateOnView>
   );

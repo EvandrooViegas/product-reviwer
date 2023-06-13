@@ -55,7 +55,7 @@ export default defineType({
                 name: "product",
                 title: "Product",
                 type: "reference",
-                to: [{ type: "product" }]
+                to: [{ type: "product" }],
             }],
             validation: rule => [
                 rule.required().min(1).error("Collection must contain at least one product")

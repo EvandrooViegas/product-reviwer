@@ -5,7 +5,7 @@ import {schemaTypes} from './schemas'
 
 export default defineConfig({
   name: 'default',
-  title: 'mike-dev',
+  title: 'webx',
 
   projectId: 'ofomfxmw',
   dataset: 'production',

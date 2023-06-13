@@ -1,5 +1,4 @@
 import { _iIcon, iIcon } from "./iIcon";
-import iSanityImage from "./iSanityImage";
 
 export interface iLink {
     icon: string,

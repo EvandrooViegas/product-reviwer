@@ -21,12 +21,10 @@ export default function ProductsAndCollectionsSwiper() {
   const swiperTitle = swiper?.title;
   const swiperElements = swiper?.elements;
   const formatedElements = formatCollectionProductToSwiper(swiperElements);
-  const { width } = useLayout();
   return (
     <div>
       <Title>{swiperTitle}</Title>
 
-      <Skeleton visible={isLoading} beforeLoadOptions={{ width, height: 400 }}>
         <AnimateOnView
           animate={{ opacity: [0.4, 1], transition: { delay: 0.2 } }}
           shouldAnimateOnce={true}
@@ -77,7 +75,6 @@ export default function ProductsAndCollectionsSwiper() {
             </Swiper>
           </ShowIf>
         </AnimateOnView>
-      </Skeleton>
     </div>
   );
 }
