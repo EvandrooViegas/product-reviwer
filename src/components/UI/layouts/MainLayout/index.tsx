@@ -18,9 +18,7 @@ export default function MainLayout({ children }: IProps) {
     data: app,
     isLoading: isAppLoading,
     error: appError,
-  } = useAsyncData<iApp>(getApp, {
-    delay: 4000
-  });
+  } = useAsyncData<iApp>(getApp);
   const { width } = useLayout();
   const { productContext } = useProductContext();
   const { collectionContext } = useCollectionContext();

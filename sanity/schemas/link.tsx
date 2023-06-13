@@ -33,7 +33,6 @@ export default defineType({
             title: "name"
         },
         prepare(ctx) {
-            console.log(ctx)
             return {
                 ...ctx,
                 media: <Icon icon={ctx.media }/>
