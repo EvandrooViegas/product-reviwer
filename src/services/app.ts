@@ -6,15 +6,15 @@ import getImageUrl from "../utils/get-image-url";
 function formatApp(_app: _iApp): iApp {
   return {
     ..._app,
-    avatar: getImageUrl(_app.avatar),
+    avatar: getImageUrl(_app?.avatar),
     socials: _app.socials.map((s) => ({
       ...s,
     })),
     swiper: {
-      ..._app.swiper,
+      ..._app?.swiper,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
-      elements: _app.swiper.elements.map((element) => ({
+      elements: _app?.swiper?.elements?.map((element) => ({
         ...element,
         banner: getImageUrl(element.banner || element.image),
         formated_date: formatDate(element._createdAt),
