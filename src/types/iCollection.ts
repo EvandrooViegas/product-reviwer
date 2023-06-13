@@ -1,3 +1,4 @@
+import { iVideo } from "./iVideo";
 import { _iLink, _iProduct, iLink, iProduct, iSanityImage } from "./index";
 
 
@@ -8,7 +9,7 @@ interface base {
     description: string,
     _type: string,
     _createdAt: string,
-    video: string,
+    video: iVideo,
 }
 export interface  iCollection extends base {
     image: string,

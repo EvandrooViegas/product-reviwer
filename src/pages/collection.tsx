@@ -98,10 +98,10 @@ export default function Collection() {
       </section>
       {hasProducts ? (
         <section className={sectionClassName}>
-          <SectionTitle title="Constituído por: " />
+          <SectionTitle  title="Constituído por: " />
 
           <ShowMoreItems
-            className="flex flex-col gap-5 w-full "
+            className="flex flex-col gap-5 w-full mt-1"
             visibleItemsQty={3}
           >
             {collection?.products?.map((product) =>
@@ -130,10 +130,9 @@ export default function Collection() {
         <section className="flex flex-col gap-1">
           <SectionTitle title="Video: " />
           <YoutubeVideoPlayer
-            url={collection?.video}
+            video={collection?.video}
             shouldAnimate={false}
             isLoading={isCollectionLoading}
-            showCaptions={false}
           />
         </section>
       ) : null}

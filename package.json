@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build && npm install --force --legacy-peer-deps",
     "preview": "vite preview",
-    "sanity-dev": "cd mike-dev && npm run dev",
+    "sanity-dev": "cd sanity && npm run dev",
     "test": "jest --watchAll"
   },
   "dependencies": {

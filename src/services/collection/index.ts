@@ -48,6 +48,7 @@ export async function getCollection(collectionId: string) {
     `*[_type == "collection" && _id == '${collectionId}'][0]{
             ...,
           products[]->,
+          video->,
           links[]->{
             ...,
             "icon": icon->icon

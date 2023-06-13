@@ -6,7 +6,7 @@ import Tooltip from "../Tooltip";
 import Skeleton from "./Skeleton";
 type Props = {
   toolipText?: string;
-  isLoading: boolean;
+  isLoading?: boolean;
   width?: number;
   height?: number;
 } & React.DetailedHTMLProps<

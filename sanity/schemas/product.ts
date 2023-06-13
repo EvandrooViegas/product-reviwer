@@ -33,7 +33,7 @@ export default defineType({
             title: "Product Banner",
             type: "image",
             validation: rule => [
-                rule.required().error("You must specify a banner")
+                rule.required().error("A banner is required")
             ]
         }),
         defineField({
